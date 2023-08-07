@@ -1,4 +1,15 @@
 
+/* Author: Vishal Agarwal, a1812047, The University of Adelaide.
+ * 
+ * The code below is an interface that is created for remote access
+ * Remote is a class that abstracts away the communication between the client
+ * and the server. Calculator is the remote child of this class. 
+ * 
+ * 
+ * 
+ */
+
+
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
