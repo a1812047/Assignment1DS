@@ -3,7 +3,8 @@
  * 
  * The code below is an interface that is created for remote access
  * Remote is a class that abstracts away the communication between the client
- * and the server. Calculator is the remote child of this class. 
+ * and the server. A class that can interact from a  different computer. 
+ * Calculator is the remote child of this class. 
  * 
  * 
  * 

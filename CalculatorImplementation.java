@@ -14,14 +14,28 @@ import java.util.ArrayList;
 
 public class CalculatorImplementation implements Calculator{
     
-    //the method calculates the function like "min", "max","gcd", "lcm" of all the numbers in the array list.
+    //the method calculates the function like "min", "max","gcd", "lcm" of all the numbers in the 
+    //array list,  'list' and the ones on  the stack, 'myStack'.
     public synchronized int calculate(ArrayList<Integer> list, String function){
-        
+        //firstly all the numbers from the client is pushed to the stack
+        //then the pushOperation pushes the function  only to return the value on the top of the 
+        //stack at the end of the calculation.
+
+
         for(int i =0; i < list.size(); i++){
             myStack.push(list.get(i));
         }
         pushOperation(function);
+        
+        
         return  getValue();
+
+        //the reason to  include this method during the implementation  are as follows:
+        // One client is normally interested to use the calculator to calculate a function on a  list of numbers
+        //RMI blocks while one method is accessed by a client. Note:there  is only  one server, 
+            //therefore many client can only run request  on one  server.
+        //requests are sent accross in packet that breaks when a client  wants to do many calculations at  once. 
+        //other clients are given a chance to use the  server when their requests are waiting to  be served.
     }
     
     //the method simply returns the top value from the stack myStack.
