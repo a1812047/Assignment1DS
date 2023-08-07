@@ -1,0 +1,17 @@
+Author: Vishal Agarwal, a1812047, The University of Adelaide. 
+
+Firstly, download the files into the working directory.
+
+Step 1:compile the files:(Note: this step will also initiate  the  server)
+	1. Open the terminal, go to the working directory
+	2. Type 'make' and hit enter.
+	3. You should see "Calculator is ready ! ! !"
+
+Step 2: Run one client:
+	1.Type 'make run_one_client' and hit enter
+	#The output is saved in the file output.txt
+	
+	Run multiple clients:
+	1.Type 'make run_multiple_clients' and hit enter
+	# The output is saved in the files outputI.txt for inputI.txt,	
+	  I represents the numbers 1, 2, 3, 4.
