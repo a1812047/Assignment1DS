@@ -7,6 +7,8 @@
  * Calculator is the remote child of this class. 
  * 
  * 
+ * Calculator has many functions listed below as the names suggest.
+ * 
  * 
  */
 
@@ -17,7 +19,11 @@ import java.util.ArrayList;
 import java.util.Stack;
 
 public interface  Calculator extends Remote{
+    
+    //fields
     public Stack<Integer> myStack = new Stack<Integer>();
+    
+    //methods or functionalities
     public int calculate(ArrayList<Integer> list, String function) throws RemoteException;
     public void pushValue(int val) throws RemoteException;
     public void pushOperation(String operator) throws RemoteException;
