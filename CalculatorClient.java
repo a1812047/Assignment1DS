@@ -1,12 +1,17 @@
-package Assignment1DS;
+
+
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 
 public class CalculatorClient {
     public int num =  0;
 
-    public static void main(String [] args){
+    public static void main(String [] args)  throws IOException{
         try{
             //get the registry from  the location predefined by the server
             Registry registry = LocateRegistry.getRegistry(2001);
@@ -14,25 +19,29 @@ public class CalculatorClient {
             //available by the server. 
             Calculator stub = (Calculator) registry.lookup("calculator");
             
-            int i = 0;
-            while(i < args.length){
-                System.out.println(args[i]);
-                if(args[i].equals("min") || args[i].equals("max") || args[i].equals("lcm") || args[i].equals("gcd")){
+            
+            ArrayList<Integer> list = new ArrayList<Integer>();
+            Scanner fileIn = new  Scanner(new FileInputStream(args[0]));
+            while(fileIn.hasNext()){
+                String s = fileIn.next();
+                
+                if(s.equals("min") || s.equals("max") || s.equals("lcm") || s.equals("gcd")){
                     
-                    stub.pushOperation(args[i]);
-                    System.out.print("this is the result of "+args[i]+": ");
-                    // System.out.println(stub.pop());
-                    System.out.println(stub.getValue());
+                    int response = stub.calculate(list,s);
+                    System.out.println(response);
+                    list.clear();
                 }else{
-                    stub.pushValue(Integer.parseInt(args[i]));
+                    list.add(Integer.parseInt(s));
                 }
-                i++;
+                
             }
+            fileIn.close();
         }catch(Exception e){
             System.out.println(e.toString());
             e.printStackTrace();
-        }finally{
-            System.out.println("Your session has ended");
-        }
+         }
+        //finally{
+        //     System.out.println("Your session has ended");
+        // }
     }
 }

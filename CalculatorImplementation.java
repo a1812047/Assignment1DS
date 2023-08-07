@@ -1,12 +1,29 @@
-package Assignment1DS;
+import java.util.ArrayList;
 
 
 public class CalculatorImplementation implements Calculator{
+    // public static void main(String [] args){
+    //     CalculatorImplementation A = new CalculatorImplementation() ;
+    //     ArrayList<Integer> list =  new ArrayList<Integer>();
+    //     list.add(10);
+    //     list.add(20);
+    //     int answer = A.calculate(list, "gcd");
+    //     System.out.println(answer);
+    // }
+    public synchronized int calculate(ArrayList<Integer> list, String function){
+        
+        for(int i =0; i < list.size(); i++){
+            myStack.push(list.get(i));
+        }
+        pushOperation(function);
+        return  getValue();
+    }
+    
     public int getValue(){
         return myStack.peek();
     }
     private int min(){
-        try{Thread.sleep(30*1000);}catch(Exception e){System.out.println("there was  an  error in min function");}
+        //try{Thread.sleep(30*1000);}catch(Exception e){System.out.println("there was  an  error in min function");}
         int answer = Integer.MAX_VALUE;
         while(isEmpty() == false){
             answer = Math.min(answer,pop());
@@ -21,20 +38,23 @@ public class CalculatorImplementation implements Calculator{
         return answer;
     }
     private int gcd(int a, int b){
+       
         if(a<b){
             return gcd(b,a);
+        }
+        if(b == 1){
+            return a;
         }
         if(a%b == 0){
             return Math.min(a,b);
         }
-        if(a == 1 || b == 1){
-            return Math.max(a,b);
-        }
+        
         return gcd(b, a-b);
     }
     private int stackGCD(){
         int answer = 1;
         while(isEmpty() == false){
+            
            answer = gcd(myStack.pop(), answer);
         }
 
@@ -75,4 +95,6 @@ public class CalculatorImplementation implements Calculator{
         }
         return pop();
     }
+
+    
 }
