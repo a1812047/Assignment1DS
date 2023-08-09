@@ -6,6 +6,7 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.UUID;
 
 
 public class CalculatorClient {
@@ -19,6 +20,8 @@ public class CalculatorClient {
             //available by the server. 
             Calculator stub = (Calculator) registry.lookup("calculator");
             
+
+            UUID uuid = UUID.randomUUID();
             
             ArrayList<Integer> list = new ArrayList<Integer>();
             Scanner fileIn = new  Scanner(new FileInputStream(args[0]));
@@ -27,7 +30,7 @@ public class CalculatorClient {
                 
                 if(s.equals("min") || s.equals("max") || s.equals("lcm") || s.equals("gcd")){
                     
-                    int response = stub.calculate(list,s);
+                    int response = stub.calculate(list,s, uuid);
                     System.out.println(response);
                     list.clear();
                 }else{

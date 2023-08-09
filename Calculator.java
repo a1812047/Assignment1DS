@@ -16,15 +16,17 @@
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Stack;
+import java.util.UUID;
 
 public interface  Calculator extends Remote{
     
     //fields
-    public Stack<Integer> myStack = new Stack<Integer>();
-    
+    public Map<UUID,Stack<Integer>> myMap = new HashMap<UUID, Stack<Integer>>();
     //methods or functionalities
-    public int calculate(ArrayList<Integer> list, String function) throws RemoteException;
+    public int calculate(ArrayList<Integer> list, String function, UUID id) throws RemoteException;
     public void pushValue(int val) throws RemoteException;
     public void pushOperation(String operator) throws RemoteException;
     public int pop() throws RemoteException;

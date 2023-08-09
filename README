@@ -15,3 +15,27 @@ Step 2: Run one client:
 	1.Type 'make run_multiple_clients' and hit enter
 	# The output is saved in the files outputI.txt for inputI.txt,	
 	  I represents the numbers 1, 2, 3, 4.
+
+
+
+Explanation of the code:
+
+The calculator has a map that stores the unique clients that is used to do the calculations through a private variable 'id'. Using the idea of login.  
+
+In the CalculatorImplementation file, you will find the calculate(list,function, uuid) method. 
+	-This acts like the main method to transfer data from the client to the server to use the calculator. 
+	-The function takes a list of integers and performs the calculation on the numbers specified by the value of the parameter function. function can take values "max", "min", "gcd" and "lcm". 
+	- To make the stack, unique for each Client, a private field uuid stores the value from uuid. 
+	
+
+	- As the list only provides the numbers, the method stores them onto the private stack and performs respective actions, leaving the value of the operation on the top of the stack. 
+	- Each time it sends a function to perform it uses this calculate method.
+	-For further clarifications please read the code file: CalculatorImplemetation.java and Calculator.java 
+
+Ofcourse, for security reasons the code assumes the id/login stage created using uuid can be further improved. 
+
+
+
+The Client file: CalculatorClient.java
+
+After locating the server's stub when the client wants to use the calculator, it always sends an id first in the list as the first parameter. 

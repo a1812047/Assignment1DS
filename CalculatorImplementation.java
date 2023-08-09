@@ -10,20 +10,42 @@
 
 
 import java.util.ArrayList;
+import java.util.Stack;
+import java.util.UUID;
 
 
 public class CalculatorImplementation implements Calculator{
     
+    private UUID id; 
+
+
+
     //the method calculates the function like "min", "max","gcd", "lcm" of all the numbers in the 
-    //array list,  'list' and the ones on  the stack, 'myStack'.
-    public synchronized int calculate(ArrayList<Integer> list, String function){
-        //firstly all the numbers from the client is pushed to the stack
+    //array list,  'list' and the ones on  the stack, 'myMap.get(id)'.
+    public synchronized int calculate(ArrayList<Integer> list, String function, UUID ID){
+        
+
+        //First and Foremost, ID is the unique client identifier.Like the login ID of the Client/user. 
+        //The rest of the arguments are
+        //List of integers: just the numbers to be put on the stack
+        //and String function : is the operation command -> "max", "min", "gcd" and "lcm"
+        
+        id = ID;
+        System.out.println(id);
+        // all the numbers from the client is pushed to the stack
         //then the pushOperation pushes the function  only to return the value on the top of the 
         //stack at the end of the calculation.
 
-
+        
         for(int i =0; i < list.size(); i++){
-            myStack.push(list.get(i));
+            if(!myMap.containsKey(id)){
+                Stack<Integer> S = new Stack<Integer>();
+                S.push(list.get(i));
+                myMap.put(id,S);
+            }else{
+                myMap.get(id).push(list.get(i));
+            }
+            
         }
         pushOperation(function);
         
@@ -38,9 +60,9 @@ public class CalculatorImplementation implements Calculator{
         //other clients are given a chance to use the  server when their requests are waiting to  be served.
     }
     
-    //the method simply returns the top value from the stack myStack.
+    //the method simply returns the top value from the stack myMap.get(id).
     public int getValue(){
-        return myStack.peek();
+        return myMap.get(id).peek();
     }
 
     //this  method calculates the minimum from all the numbers in the stack and returns that number. 
@@ -97,7 +119,7 @@ public class CalculatorImplementation implements Calculator{
         int answer = 1;
         while(isEmpty() == false){
             
-           answer = gcd(myStack.pop(), answer);
+           answer = gcd(myMap.get(id).pop(), answer);
         }
 
         return answer;
@@ -111,18 +133,18 @@ public class CalculatorImplementation implements Calculator{
         //The algorithm has  a= lcm and b = the stack's top value.
         int lcm = 1;
         while(isEmpty() == false){
-            lcm = (myStack.peek()*lcm)/gcd(myStack.pop(),lcm);
+            lcm = (myMap.get(id).peek()*lcm)/gcd(myMap.get(id).pop(),lcm);
         }
         return lcm;
     }
 
     //simply pushes the value on to the  stack
     public synchronized void pushValue(int val){
-        myStack.push(val);
+        myMap.get(id).push(val);
     }
 
     //pushOperation recognises the operator namely : min, max, gcd, lcm and pushes the 
-    //value returned  to it on the top  of the stack, myStack.
+    //value returned  to it on the top  of the stack, myMap.get(id).
     public synchronized void pushOperation(String operator){
         if(operator.equals("min")){
             pushValue(min());
@@ -135,14 +157,14 @@ public class CalculatorImplementation implements Calculator{
         }
     }
 
-    //pop pops off the current value on the top of the stack, myStack
+    //pop pops off the current value on the top of the stack, myMap.get(id)
     public int pop(){
-        return myStack.pop();
+        return myMap.get(id).pop();
     }
 
-    //returns true if myStack is empty, else returns false
+    //returns true if myMap.get(id) is empty, else returns false
     public boolean isEmpty(){
-        return myStack.empty();
+        return myMap.get(id).empty();
     }
 
     //this function simply delays the pop by millis milliseconds. 
