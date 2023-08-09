@@ -38,4 +38,14 @@ Ofcourse, for security reasons the code assumes the id/login stage created using
 
 The Client file: CalculatorClient.java
 
-After locating the server's stub when the client wants to use the calculator, it always sends an id first in the list as the first parameter. 
+After locating the server's stub when the client wants to use the calculator, it always sends a unique id with the function and the list of numbers to calculate the operator function. 
+
+
+Note: I have regressively tested the code and have deleted the tests or changed them . 
+		I have noticed, the numbers should be valid, i.e. the numbers cannot be negative for gcd and lcm. 
+		Other than that it should pass test cases like , (1 min gcd gcd), ( 12 2 min 12 2 2 2 50000000 max 10 gcd). 
+	The gcd function while creating was tested and passed all the results in the unit testing stage. 
+	Same for lcm, however lcm was derived from the formula lcm = a*b/gcd(a,b); Therefore it was not stressed.
+	Min and max used the library Math. 
+
+	Thank you for reading. Student ID : a1812047, Vishal Agarwal. 
